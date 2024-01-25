@@ -4,15 +4,12 @@ import 'package:journal/consts/color_schemes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoodPageContent extends StatelessWidget {
-  MoodPageContent({super.key});
-
-  final bool selected = true;
-  final controller = TextEditingController();
+  const MoodPageContent({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
           decoration: BoxDecoration(
@@ -33,28 +30,12 @@ class MoodPageContent extends StatelessWidget {
                 height: 8,
               ),
               const MoodSelection(),
-              const SizedBox(
-                height: 8,
-              ),
-              TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      controller.clear();
-                    },
-                    icon: const Icon(Icons.add),
-                  ),
-                  hintText: 'Short note',
-                ),
-                onChanged: (String value) {},
-              ),
             ],
           ),
         ),
         BlocBuilder<MoodPageCubit, MoodPageState>(
           builder: (context, state) {
-            Enum? currentMood = context.read<MoodPageCubit>().state.moodEnum;
+            MoodEnum? currentMood = context.read<MoodPageCubit>().state.moodEnum;
             switch (currentMood) {
               case MoodEnum.bad:
                 return const Text('bad');
@@ -62,12 +43,24 @@ class MoodPageContent extends StatelessWidget {
                 return const Text('neutral');
               case MoodEnum.good:
                 return const Text('good');
+              case null:
+                return const SizedBox(
+                  height: 20,
+                );
+            }
+          },
+        ),
+        BlocBuilder<MoodPageCubit, MoodPageState>(
+          builder: (context, state) {
+            String? note = context.read<MoodPageCubit>().state.note;
+            if (note != null) {
+              return Text(note);
             }
             return const SizedBox(
               height: 20,
             );
           },
-        )
+        ),
       ],
     );
   }
@@ -84,48 +77,74 @@ class MoodSelection extends StatefulWidget {
 
 class _MoodSelectionState extends State<MoodSelection> {
   int? _value = 1;
+  final controller = TextEditingController();
+  MoodEnum? currentMood;
+  String? currentNote;
 
   @override
   Widget build(BuildContext context) {
-    return OverflowBar(
-      spacing: 8,
-      overflowSpacing: 4,
-      overflowAlignment: OverflowBarAlignment.center,
+    return Column(
       children: [
-        ChoiceChip(
-          label: const Text('Bad'),
-          selected: _value == 0,
-          onSelected: (selected) {
-            setState(() {
-              _value = selected ? 0 : null;
-              context.read<MoodPageCubit>().setMood(MoodEnum.bad);
-            });
-          },
-          selectedColor: Colors.red,
-        ),
-        ChoiceChip(
-          label: const Text('Neutral'),
-          selected: _value == 1,
-          onSelected: (selected) {
-            setState(() {
-              _value = selected ? 1 : null;
-              context.read<MoodPageCubit>().setMood(MoodEnum.neutral);
-            });
-          },
-          selectedColor: Colors.grey.shade700,
-        ),
-        ChoiceChip(
-          label: const Text('Good'),
-          selected: _value == 2,
-          onSelected: (selected) {
-            setState(
-              () {
-                _value = selected ? 2 : null;
-                context.read<MoodPageCubit>().setMood(MoodEnum.good);
+        OverflowBar(
+          spacing: 8,
+          overflowSpacing: 4,
+          overflowAlignment: OverflowBarAlignment.center,
+          children: [
+            ChoiceChip(
+              label: const Text('Bad'),
+              selected: _value == 0,
+              onSelected: (selected) {
+                setState(() {
+                  _value = selected ? 0 : null;
+                  currentMood = MoodEnum.bad;
+                });
               },
-            );
+              selectedColor: Colors.red,
+            ),
+            ChoiceChip(
+              label: const Text('Neutral'),
+              selected: _value == 1,
+              onSelected: (selected) {
+                setState(() {
+                  _value = selected ? 1 : null;
+                  currentMood = MoodEnum.neutral;
+                });
+              },
+              selectedColor: Colors.grey.shade700,
+            ),
+            ChoiceChip(
+              label: const Text('Good'),
+              selected: _value == 2,
+              onSelected: (selected) {
+                setState(
+                  () {
+                    _value = selected ? 2 : null;
+                    currentMood = MoodEnum.good;
+                  },
+                );
+              },
+              selectedColor: Colors.green,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              onPressed: () {
+                context.read<MoodPageCubit>().setMood(currentMood, currentNote);
+                controller.clear();
+              },
+              icon: const Icon(Icons.add),
+            ),
+            hintText: 'Short note',
+          ),
+          onChanged: (String? value) {
+            currentNote = value;
           },
-          selectedColor: Colors.green,
         ),
       ],
     );

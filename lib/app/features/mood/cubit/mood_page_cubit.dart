@@ -10,6 +10,7 @@ class MoodPageCubit extends Cubit<MoodPageState> {
       : super(
           const MoodPageState(
             moodEnum: null,
+            note: null,
           ),
         );
 
@@ -17,14 +18,16 @@ class MoodPageCubit extends Cubit<MoodPageState> {
     emit(
       const MoodPageState(
         moodEnum: MoodEnum.neutral,
+        note: '',
       ),
     );
   }
 
-  Future<void> setMood(MoodEnum mood) async {
+  Future<void> setMood(MoodEnum? mood, String? note) async {
     emit(
       MoodPageState(
         moodEnum: mood,
+        note: note,
       ),
     );
   }
