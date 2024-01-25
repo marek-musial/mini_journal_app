@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:journal/consts/color%20schemes.dart';
+import 'package:journal/consts/color_schemes.dart';
+import 'package:journal/mood_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,26 +16,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: currentColorScheme,
       ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Journal home page'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [],
-        ),
-      ),
+      home: const MoodPage(),
     );
   }
 }
