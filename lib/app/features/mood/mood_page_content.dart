@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:journal/app/features/mood/cubit/mood_page_cubit.dart';
 import 'package:journal/consts/color_schemes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoodPageContent extends StatelessWidget {
   MoodPageContent({super.key});
 
   final bool selected = true;
   final controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,6 +52,22 @@ class MoodPageContent extends StatelessWidget {
             ],
           ),
         ),
+        BlocBuilder<MoodPageCubit, MoodPageState>(
+          builder: (context, state) {
+            Enum? currentMood = context.read<MoodPageCubit>().state.moodEnum;
+            switch (currentMood) {
+              case MoodEnum.bad:
+                return const Text('bad');
+              case MoodEnum.neutral:
+                return const Text('neutral');
+              case MoodEnum.good:
+                return const Text('good');
+            }
+            return const SizedBox(
+              height: 20,
+            );
+          },
+        )
       ],
     );
   }
@@ -79,6 +98,7 @@ class _MoodSelectionState extends State<MoodSelection> {
           onSelected: (selected) {
             setState(() {
               _value = selected ? 0 : null;
+              context.read<MoodPageCubit>().setMood(MoodEnum.bad);
             });
           },
           selectedColor: Colors.red,
@@ -89,6 +109,7 @@ class _MoodSelectionState extends State<MoodSelection> {
           onSelected: (selected) {
             setState(() {
               _value = selected ? 1 : null;
+              context.read<MoodPageCubit>().setMood(MoodEnum.neutral);
             });
           },
           selectedColor: Colors.grey.shade700,
@@ -97,9 +118,12 @@ class _MoodSelectionState extends State<MoodSelection> {
           label: const Text('Good'),
           selected: _value == 2,
           onSelected: (selected) {
-            setState(() {
-              _value = selected ? 2 : null;
-            });
+            setState(
+              () {
+                _value = selected ? 2 : null;
+                context.read<MoodPageCubit>().setMood(MoodEnum.good);
+              },
+            );
           },
           selectedColor: Colors.green,
         ),
