@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: currentColorScheme,
       ),
-      home: const MoodPage(),
+      home: MoodPage(),
     );
   }
 }
