@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:journal/app/features/home/home_page.dart';
 import 'package:journal/consts/color_schemes.dart';
-import 'package:journal/app/features/mood/mood_page.dart';
 
 void main() {
   runApp(const JournalApp());
@@ -16,7 +16,7 @@ class JournalApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: currentColorScheme,
       ),
-      home: MoodPage(),
+      home: const HomePage(),
     );
   }
 }

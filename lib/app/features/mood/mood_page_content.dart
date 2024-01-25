@@ -1,61 +1,55 @@
-
 import 'package:flutter/material.dart';
 import 'package:journal/consts/color_schemes.dart';
 
-class MoodPage extends StatelessWidget {
-  MoodPage({super.key});
+class MoodPageContent extends StatelessWidget {
+  MoodPageContent({super.key});
 
   final bool selected = true;
   final controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Journal home page'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8),
-              ),
-              color: currentColorScheme.primaryContainer,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8),
             ),
-            margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Text(
-                  'My mood today:',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const MoodSelection(),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextField(
-                  controller: controller,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        controller.clear();
-                      },
-                      icon: const Icon(Icons.add),
-                    ),
-                    hintText: 'Short note',
-                  ),
-                  onChanged: (String value) {},
-                ),
-              ],
-            ),
+            color: currentColorScheme.primaryContainer,
           ),
-        ],
-      ),
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Text(
+                'My mood today:',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              const MoodSelection(),
+              const SizedBox(
+                height: 8,
+              ),
+              TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      controller.clear();
+                    },
+                    icon: const Icon(Icons.add),
+                  ),
+                  hintText: 'Short note',
+                ),
+                onChanged: (String value) {},
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
