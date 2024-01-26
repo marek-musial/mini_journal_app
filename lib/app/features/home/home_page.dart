@@ -9,12 +9,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Journal home page'),
       ),
       body: BlocProvider(
         create: (context) => MoodPageCubit(),
-        child: MoodPageContent(),
+        child: const MoodPageContent(),
       ),
     );
   }
