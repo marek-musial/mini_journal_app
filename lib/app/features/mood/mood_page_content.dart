@@ -97,6 +97,7 @@ class _MoodSelectionState extends State<MoodSelection> {
                 setState(() {
                   _value = selected ? 0 : null;
                   currentMood = MoodEnum.bad;
+                  context.read<MoodPageCubit>().setMood(currentMood, currentNote);
                 });
               },
               selectedColor: Colors.red,
@@ -108,6 +109,7 @@ class _MoodSelectionState extends State<MoodSelection> {
                 setState(() {
                   _value = selected ? 1 : null;
                   currentMood = MoodEnum.neutral;
+                  context.read<MoodPageCubit>().setMood(currentMood, currentNote);
                 });
               },
               selectedColor: Colors.grey.shade700,
@@ -120,6 +122,7 @@ class _MoodSelectionState extends State<MoodSelection> {
                   () {
                     _value = selected ? 2 : null;
                     currentMood = MoodEnum.good;
+                    context.read<MoodPageCubit>().setMood(currentMood, currentNote);
                   },
                 );
               },
