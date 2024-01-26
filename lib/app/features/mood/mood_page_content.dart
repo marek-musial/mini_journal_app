@@ -10,30 +10,32 @@ class MoodPageContent extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
+        Flexible(
+          flex: 3,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(16),
+              ),
+              color: currentColorScheme.primaryContainer,
             ),
-            color: currentColorScheme.primaryContainer,
-          ),
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Text(
-                'My mood today:',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              const MoodSelection(),
-            ],
+            margin: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: const [
+                // Text(
+                //   'My mood today:',
+                //   style: Theme.of(context).textTheme.headlineSmall,
+                // ),
+                SizedBox(height: 8),
+                MoodSelection(),
+              ],
+            ),
           ),
         ),
         const MoodDisplay(),
         const MessageDisplay(),
+        const CalendarDisplay(),
       ],
     );
   }

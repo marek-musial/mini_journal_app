@@ -11,7 +11,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Journal home page'),
+        title: const Text('My mood today:'),
+        centerTitle: true,
       ),
       body: BlocProvider(
         create: (context) => MoodPageCubit(),
