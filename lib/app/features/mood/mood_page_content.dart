@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:journal/app/features/mood/mood_page_widgets/mood_page_widgets.dart';
 import 'package:journal/themes/color_schemes.dart';
+import 'package:journal/themes/screen_sizes.dart';
 
 class MoodPageContent extends StatelessWidget {
   const MoodPageContent({super.key});
@@ -10,27 +11,29 @@ class MoodPageContent extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Flexible(
-          flex: 3,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(16),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(screenWidth / 24),
               ),
-              color: currentColorScheme.primaryContainer,
-            ),
-            margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: const [
-                // Text(
-                //   'My mood today:',
-                //   style: Theme.of(context).textTheme.headlineSmall,
-                // ),
-                SizedBox(height: 8),
-                MoodSelection(),
-              ],
-            ),
+              color: currentColorScheme.primaryContainer),
+          margin: EdgeInsets.symmetric(
+            vertical: screenHeight / 64,
+            horizontal: screenWidth / 32,
+          ),
+          padding: EdgeInsets.symmetric(
+            vertical: screenHeight / 64,
+            horizontal: screenWidth / 32,
+          ),
+          child: Column(
+            children: [
+              // Text(
+              //   'My mood today:',
+              //   style: Theme.of(context).textTheme.headlineSmall,
+              // ),
+              SizedBox(height: screenHeight / 64),
+              const MoodSelection(),
+            ],
           ),
         ),
         const MoodDisplay(),

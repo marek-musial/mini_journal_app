@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:journal/app/features/mood/cubit/mood_page_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:journal/themes/color_schemes.dart';
+import 'package:journal/themes/screen_sizes.dart';
 
 class MoodSelection extends StatefulWidget {
   const MoodSelection({
@@ -22,8 +24,8 @@ class _MoodSelectionState extends State<MoodSelection> {
     return Column(
       children: [
         OverflowBar(
-          spacing: 8,
-          overflowSpacing: 4,
+          spacing: screenWidth / 32,
+          overflowSpacing: screenWidth / 64,
           overflowAlignment: OverflowBarAlignment.center,
           children: [
             ChoiceChip(
@@ -66,8 +68,8 @@ class _MoodSelectionState extends State<MoodSelection> {
             ),
           ],
         ),
-        const SizedBox(
-          height: 8,
+        SizedBox(
+          height: screenHeight / 160,
         ),
         TextField(
           controller: controller,
@@ -77,7 +79,10 @@ class _MoodSelectionState extends State<MoodSelection> {
                 context.read<MoodPageCubit>().setMood(currentMood, currentNote);
                 controller.clear();
               },
-              icon: const Icon(Icons.add),
+              icon: Icon(
+                Icons.add,
+                color: currentColorScheme.onPrimaryContainer,
+              ),
             ),
             hintText: 'Short note',
           ),

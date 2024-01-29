@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:journal/app/features/mood/cubit/mood_page_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:journal/themes/screen_sizes.dart';
 
 class MoodDisplay extends StatelessWidget {
   const MoodDisplay({
@@ -20,8 +21,8 @@ class MoodDisplay extends StatelessWidget {
           case MoodEnum.good:
             return const Text('good');
           case null:
-            return const SizedBox(
-              height: 20,
+            return SizedBox(
+              height: screenHeight / 40,
             );
         }
       },
