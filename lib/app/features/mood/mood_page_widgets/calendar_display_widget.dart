@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:journal/themes/color_schemes.dart';
+import 'package:journal/themes/screen_sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarDisplay extends StatefulWidget {
@@ -17,39 +18,79 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      flex: 5,
-      child: TableCalendar(
-        focusedDay: _focusedDay ?? DateTime.now(),
-        firstDay: DateTime.now().subtract(const Duration(days: 365 * 10)),
-        lastDay: DateTime.now(),
-        daysOfWeekHeight: 16,
-        rowHeight: 32,
-        startingDayOfWeek: StartingDayOfWeek.monday,
-        headerStyle: HeaderStyle(
-          formatButtonVisible: false,
-          titleCentered: true,
-          headerMargin: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(16),
-            ),
-            color: currentColorScheme.primaryContainer,
-          ),
-        ),
-        selectedDayPredicate: (day) {
-          return isSameDay(_selectedDay, day);
-        },
-        onDaySelected: (selectedDay, focusedDay) {
-          setState(() {
-            _selectedDay = selectedDay;
-            _focusedDay = focusedDay;
-          });
-        },
-        onPageChanged: (focusedDay) {
-          _focusedDay = focusedDay;
-        },
+    var defaultTextStyle = TextStyle(
+      color: currentColorScheme.onSurface,
+    );
+
+    var grayedOutTextStyle = TextStyle(
+      color: currentColorScheme.onSurfaceVariant,
+    );
+
+    var calendarStyle = CalendarStyle(
+      defaultTextStyle: defaultTextStyle,
+      weekendTextStyle: defaultTextStyle,
+      outsideTextStyle: grayedOutTextStyle,
+      disabledTextStyle: grayedOutTextStyle,
+      selectedDecoration: BoxDecoration(
+        color: currentColorScheme.primaryContainer,
+        shape: BoxShape.circle,
+      ),
+      selectedTextStyle: TextStyle(
+        color: defaultTextStyle.color,
+        fontWeight: FontWeight.bold,
+      ),
+      todayDecoration: BoxDecoration(
+        color: currentColorScheme.primaryContainer.withAlpha(120),
+        shape: BoxShape.circle,
+      ),
+      todayTextStyle: TextStyle(
+        color: defaultTextStyle.color,
       ),
     );
+
+    var headerStyle = HeaderStyle(
+      formatButtonVisible: false,
+      titleCentered: true,
+      headerMargin: EdgeInsets.symmetric(
+        vertical: screenHeight / 64,
+        horizontal: screenWidth / 32,
+      ),
+      headerPadding: EdgeInsets.symmetric(
+        horizontal: screenWidth / 32,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(screenWidth / 24),
+        ),
+        color: currentColorScheme.primaryContainer,
+      ),
+    );
+
+    return TableCalendar(
+      calendarStyle: calendarStyle,
+      focusedDay: _focusedDay ?? DateTime.now(),
+      firstDay: DateTime.now().subtract(const Duration(days: 365 * 10)),
+      lastDay: DateTime.now(),
+      daysOfWeekHeight: screenHeight / 32,
+      rowHeight: screenHeight / 18,
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      headerStyle: headerStyle,
+      selectedDayPredicate: (day) {
+        return isSameDay(_selectedDay, day);
+      },
+      onDaySelected: _onDaySelected,
+      onPageChanged: _onPageChanged,
+    );
+  }
+
+  void _onPageChanged(focusedDay) {
+    _focusedDay = focusedDay;
+  }
+
+  void _onDaySelected(selectedDay, focusedDay) {
+    setState(() {
+      _selectedDay = selectedDay;
+      _focusedDay = focusedDay;
+    });
   }
 }
