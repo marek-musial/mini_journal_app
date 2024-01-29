@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:journal/app/features/mood/mood_page_widgets/mood_page_widgets.dart';
-import 'package:journal/consts/color_schemes.dart';
+import 'package:journal/themes/color_schemes.dart';
 
 class MoodPageContent extends StatelessWidget {
   const MoodPageContent({super.key});

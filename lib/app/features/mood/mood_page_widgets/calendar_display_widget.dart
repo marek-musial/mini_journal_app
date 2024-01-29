@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:journal/consts/color_schemes.dart';
+import 'package:journal/themes/color_schemes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarDisplay extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:journal/app/features/home/home_page.dart';
-import 'package:journal/consts/color_schemes.dart';
+import 'package:journal/themes/color_schemes.dart';
 
 void main() {
   runApp(const JournalApp());
