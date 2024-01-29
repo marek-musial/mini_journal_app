@@ -20,10 +20,12 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
   Widget build(BuildContext context) {
     var defaultTextStyle = TextStyle(
       color: currentColorScheme.onSurface,
+      fontSize: 14,
     );
 
     var grayedOutTextStyle = TextStyle(
       color: currentColorScheme.onSurfaceVariant,
+      fontSize: 14,
     );
 
     var calendarStyle = CalendarStyle(
@@ -51,8 +53,9 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
     var headerStyle = HeaderStyle(
       formatButtonVisible: false,
       titleCentered: true,
+      titleTextStyle: defaultTextStyle,
       headerMargin: EdgeInsets.symmetric(
-        vertical: screenHeight / 64,
+        vertical: screenHeight / 84,
         horizontal: screenWidth / 32,
       ),
       headerPadding: EdgeInsets.symmetric(
@@ -71,10 +74,18 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
       focusedDay: _focusedDay ?? DateTime.now(),
       firstDay: DateTime.now().subtract(const Duration(days: 365 * 10)),
       lastDay: DateTime.now(),
-      daysOfWeekHeight: screenHeight / 32,
-      rowHeight: screenHeight / 18,
+      daysOfWeekHeight: screenHeight / 40,
+      rowHeight: screenHeight / 20,
       startingDayOfWeek: StartingDayOfWeek.monday,
       headerStyle: headerStyle,
+      daysOfWeekStyle: DaysOfWeekStyle(
+        weekdayStyle: defaultTextStyle,
+        weekendStyle: defaultTextStyle,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: currentColorScheme.surfaceVariant.withAlpha(10),
+        ),
+      ),
       selectedDayPredicate: (day) {
         return isSameDay(_selectedDay, day);
       },
