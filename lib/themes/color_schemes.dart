@@ -24,8 +24,8 @@ ColorScheme lightColorScheme = ColorScheme(
   onBackground: Colors.grey.shade900,
   surface: Colors.white,
   onSurface: Colors.grey.shade900,
-  surfaceVariant: Colors.grey.shade400,
-  onSurfaceVariant: Colors.grey.shade700,
+  surfaceVariant: Colors.grey.shade500,
+  onSurfaceVariant: Colors.grey.shade800,
   shadow: Colors.black.withOpacity(0.2),
   scrim: Colors.grey.withOpacity(0.1),
 );
@@ -52,8 +52,8 @@ ColorScheme darkColorScheme = ColorScheme(
   onBackground: Colors.white,
   surface: Colors.grey.shade900,
   onSurface: Colors.white,
-  surfaceVariant: Colors.grey.shade800,
-  onSurfaceVariant: Colors.white,
+  surfaceVariant: Colors.grey.shade500,
+  onSurfaceVariant: Colors.grey.shade800,
   shadow: Colors.black.withOpacity(0.2),
   scrim: Colors.grey.withOpacity(0.1),
 );
