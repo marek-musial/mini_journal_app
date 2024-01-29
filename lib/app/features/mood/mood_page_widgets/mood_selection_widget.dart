@@ -68,27 +68,30 @@ class _MoodSelectionState extends State<MoodSelection> {
             ),
           ],
         ),
-        SizedBox(
-          height: screenHeight / 160,
-        ),
-        TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              onPressed: () {
-                context.read<MoodPageCubit>().setMood(currentMood, currentNote);
-                controller.clear();
-              },
-              icon: Icon(
-                Icons.add,
-                color: currentColorScheme.onPrimaryContainer,
-              ),
-            ),
-            hintText: 'Short note',
+        Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: screenHeight / 64,
+            horizontal: screenWidth / 32,
           ),
-          onChanged: (String? value) {
-            currentNote = value;
-          },
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                onPressed: () {
+                  context.read<MoodPageCubit>().setMood(currentMood, currentNote);
+                  controller.clear();
+                },
+                icon: Icon(
+                  Icons.add,
+                  color: currentColorScheme.onPrimaryContainer,
+                ),
+              ),
+              hintText: 'Short note',
+            ),
+            onChanged: (String? value) {
+              currentNote = value;
+            },
+          ),
         ),
       ],
     );
