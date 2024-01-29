@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-ColorScheme currentColorScheme = darkColorScheme;
+ColorScheme currentColorScheme = lightColorScheme;
 
 ColorScheme lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Colors.white,
   onPrimary: Colors.black,
-  primaryContainer: Colors.grey.shade200,
+  primaryContainer: Colors.grey.shade400,
   onPrimaryContainer: Colors.grey.shade800,
   secondary: const Color.fromARGB(255, 33, 116, 36),
   onSecondary: Colors.white,
@@ -24,7 +24,7 @@ ColorScheme lightColorScheme = ColorScheme(
   onBackground: Colors.grey.shade900,
   surface: Colors.white,
   onSurface: Colors.grey.shade900,
-  surfaceVariant: Colors.grey.shade500,
+  surfaceVariant: Colors.grey.shade700,
   onSurfaceVariant: Colors.grey.shade800,
   shadow: Colors.black.withOpacity(0.2),
   scrim: Colors.grey.withOpacity(0.1),
