@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:journal/app/features/mood/cubit/mood_page_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:journal/models/mood_item_model.dart';
 import 'package:journal/themes/color_schemes.dart';
 import 'package:journal/themes/screen_sizes.dart';
 
@@ -18,6 +19,7 @@ class _MoodSelectionState extends State<MoodSelection> {
   final controller = TextEditingController();
   MoodEnum? currentMood;
   String? currentNote;
+  DateTime? selectedDay;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,14 @@ class _MoodSelectionState extends State<MoodSelection> {
               selected: _value == 0,
               onSelected: (selected) {
                 setState(() {
+                  selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
                   _value = selected ? 0 : null;
                   currentMood = MoodEnum.bad;
-                  context.read<MoodPageCubit>().setMood(currentMood, currentNote);
+                  context.read<MoodPageCubit>().setMood(
+                        currentMood,
+                        currentNote,
+                        selectedDay,
+                      );
                 });
               },
               selectedColor: Colors.red,
@@ -45,9 +52,14 @@ class _MoodSelectionState extends State<MoodSelection> {
               selected: _value == 1,
               onSelected: (selected) {
                 setState(() {
+                  selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
                   _value = selected ? 1 : null;
                   currentMood = MoodEnum.neutral;
-                  context.read<MoodPageCubit>().setMood(currentMood, currentNote);
+                  context.read<MoodPageCubit>().setMood(
+                        currentMood,
+                        currentNote,
+                        selectedDay,
+                      );
                 });
               },
               selectedColor: Colors.grey.shade700,
@@ -58,9 +70,14 @@ class _MoodSelectionState extends State<MoodSelection> {
               onSelected: (selected) {
                 setState(
                   () {
+                    selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
                     _value = selected ? 2 : null;
                     currentMood = MoodEnum.good;
-                    context.read<MoodPageCubit>().setMood(currentMood, currentNote);
+                    context.read<MoodPageCubit>().setMood(
+                          currentMood,
+                          currentNote,
+                          selectedDay,
+                        );
                   },
                 );
               },
@@ -78,7 +95,12 @@ class _MoodSelectionState extends State<MoodSelection> {
             decoration: InputDecoration(
               suffixIcon: IconButton(
                 onPressed: () {
-                  context.read<MoodPageCubit>().setMood(currentMood, currentNote);
+                  selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
+                  context.read<MoodPageCubit>().setMood(
+                        currentMood,
+                        currentNote,
+                        selectedDay,
+                      );
                   controller.clear();
                 },
                 icon: Icon(

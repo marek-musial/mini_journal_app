@@ -1,31 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:journal/app/features/mood/cubit/mood_page_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:journal/models/mood_item_model.dart';
 import 'package:journal/themes/screen_sizes.dart';
 
 class MoodDisplay extends StatelessWidget {
   const MoodDisplay({
-    super.key,
-  });
+    required this.itemModel,
+    Key? key,
+  }) : super(key: key);
+
+  final MoodItemModel? itemModel;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MoodPageCubit, MoodPageState>(
-      builder: (context, state) {
-        MoodEnum? currentMood = context.read<MoodPageCubit>().state.moodEnum;
-        switch (currentMood) {
-          case MoodEnum.bad:
-            return const Text('bad');
-          case MoodEnum.neutral:
-            return const Text('neutral');
-          case MoodEnum.good:
-            return const Text('good');
-          case null:
-            return SizedBox(
-              height: screenHeight / 40,
-            );
-        }
-      },
-    );
+    switch (itemModel?.mood) {
+      case MoodEnum.bad:
+        return Text('bad',
+            style: TextStyle(
+              fontSize: screenHeight / 44,
+            ));
+      case MoodEnum.neutral:
+        return Text('neutral',
+            style: TextStyle(
+              fontSize: screenHeight / 44,
+            ));
+      case MoodEnum.good:
+        return Text(
+          'good',
+          style: TextStyle(
+            fontSize: screenHeight / 44,
+          ),
+        );
+      case null:
+        return SizedBox(
+          height: screenHeight / 44,
+        );
+    }
   }
 }

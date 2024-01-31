@@ -1,33 +1,37 @@
 import 'package:bloc/bloc.dart';
+import 'package:journal/models/mood_item_model.dart';
 import 'package:meta/meta.dart';
 
 part 'mood_page_state.dart';
-
-enum MoodEnum { bad, neutral, good }
 
 class MoodPageCubit extends Cubit<MoodPageState> {
   MoodPageCubit()
       : super(
           const MoodPageState(
-            moodEnum: null,
-            note: null,
+            itemModel: null,
           ),
         );
 
-  Future<void> start() async {
+  Future<void> start(DateTime day) async {
     emit(
-      const MoodPageState(
-        moodEnum: MoodEnum.neutral,
-        note: '',
+      MoodPageState(
+        itemModel: MoodItemModel(
+          mood: MoodEnum.neutral,
+          note: '',
+          date: day,
+        ),
       ),
     );
   }
 
-  Future<void> setMood(MoodEnum? mood, String? note) async {
+  Future<void> setMood(MoodEnum? mood, String? note, DateTime? day) async {
     emit(
       MoodPageState(
-        moodEnum: mood,
-        note: note,
+        itemModel: MoodItemModel(
+          mood: mood,
+          note: note,
+          date: day,
+        ),
       ),
     );
   }

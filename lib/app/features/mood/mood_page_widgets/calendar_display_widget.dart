@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:journal/app/features/mood/cubit/mood_page_cubit.dart';
+import 'package:journal/models/mood_item_model.dart';
 import 'package:journal/themes/color_schemes.dart';
 import 'package:journal/themes/screen_sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarDisplay extends StatefulWidget {
   const CalendarDisplay({
-    super.key,
-  });
+    required this.itemModel,
+    Key? key,
+  }) : super(key: key);
+
+  final MoodItemModel? itemModel;
 
   @override
   State<CalendarDisplay> createState() => _CalendarDisplayState();
@@ -15,17 +21,20 @@ class CalendarDisplay extends StatefulWidget {
 class _CalendarDisplayState extends State<CalendarDisplay> {
   DateTime? _selectedDay;
   DateTime? _focusedDay;
+  DateTime? selectedDay;
+  String? currentNote;
+  MoodEnum? currentMood;
 
   @override
   Widget build(BuildContext context) {
     var defaultTextStyle = TextStyle(
       color: currentColorScheme.onSurface,
-      fontSize: 14,
+      fontSize: screenHeight / 44,
     );
 
     var grayedOutTextStyle = TextStyle(
       color: currentColorScheme.onSurfaceVariant,
-      fontSize: 14,
+      fontSize: screenHeight / 44,
     );
 
     var calendarStyle = CalendarStyle(
@@ -75,7 +84,7 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
       firstDay: DateTime.now().subtract(const Duration(days: 365 * 10)),
       lastDay: DateTime.now(),
       daysOfWeekHeight: screenHeight / 40,
-      rowHeight: screenHeight / 20,
+      rowHeight: screenHeight / 22,
       startingDayOfWeek: StartingDayOfWeek.monday,
       headerStyle: headerStyle,
       daysOfWeekStyle: DaysOfWeekStyle(
@@ -102,6 +111,13 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
     setState(() {
       _selectedDay = selectedDay;
       _focusedDay = focusedDay;
+      currentMood = widget.itemModel?.mood;
+      currentNote = widget.itemModel?.note;
+      context.read<MoodPageCubit>().setMood(
+            currentMood,
+            currentNote,
+            selectedDay,
+          );
     });
   }
 }

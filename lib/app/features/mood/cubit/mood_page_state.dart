@@ -2,11 +2,9 @@ part of 'mood_page_cubit.dart';
 
 @immutable
 class MoodPageState {
-  final MoodEnum? moodEnum;
-  final String? note;
+  final MoodItemModel? itemModel;
 
   const MoodPageState({
-    required this.moodEnum,
-    required this.note,
+    required this.itemModel,
   });
 }
