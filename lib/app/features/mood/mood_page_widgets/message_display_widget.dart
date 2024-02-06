@@ -5,8 +5,8 @@ import 'package:journal/themes/screen_sizes.dart';
 class MessageDisplay extends StatelessWidget {
   const MessageDisplay({
     required this.itemModel,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final MoodItemModel? itemModel;
 

@@ -9,8 +9,8 @@ import 'package:table_calendar/table_calendar.dart';
 class CalendarDisplay extends StatefulWidget {
   const CalendarDisplay({
     required this.itemModel,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final MoodItemModel? itemModel;
 
@@ -118,6 +118,16 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
             currentNote,
             selectedDay,
           );
+      // _getMoodForDay(selectedDay);
     });
   }
+
+  // MoodItemModel _getMoodForDay(DateTime day) {
+  //   return mood[day] ?? [];
+  // }
+
+  // final mood = LinkedHashMap(
+  //   equals: isSameDay,
+  //   hashCode: getHashCode
+  // );
 }

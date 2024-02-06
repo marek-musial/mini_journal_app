@@ -5,8 +5,8 @@ import 'package:journal/themes/screen_sizes.dart';
 class MoodDisplay extends StatelessWidget {
   const MoodDisplay({
     required this.itemModel,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final MoodItemModel? itemModel;
 
@@ -14,18 +14,18 @@ class MoodDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (itemModel?.mood) {
       case MoodEnum.bad:
-        return Text('bad',
+        return Text('Bad',
             style: TextStyle(
               fontSize: screenHeight / 44,
             ));
       case MoodEnum.neutral:
-        return Text('neutral',
+        return Text('Neutral',
             style: TextStyle(
               fontSize: screenHeight / 44,
             ));
       case MoodEnum.good:
         return Text(
-          'good',
+          'Good',
           style: TextStyle(
             fontSize: screenHeight / 44,
           ),
