@@ -108,26 +108,18 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
   }
 
   void _onDaySelected(selectedDay, focusedDay) {
-    setState(() {
-      _selectedDay = selectedDay;
-      _focusedDay = focusedDay;
-      currentMood = widget.itemModel?.mood;
-      currentNote = widget.itemModel?.note;
-      context.read<MoodPageCubit>().setMood(
-            currentMood,
-            currentNote,
-            selectedDay,
-          );
-      // _getMoodForDay(selectedDay);
-    });
+    setState(
+      () {
+        _selectedDay = selectedDay;
+        _focusedDay = focusedDay;
+        currentMood = widget.itemModel?.mood;
+        currentNote = widget.itemModel?.note;
+        context.read<MoodPageCubit>().setMood(
+              currentMood,
+              currentNote,
+              selectedDay,
+            );
+      },
+    );
   }
-
-  // MoodItemModel _getMoodForDay(DateTime day) {
-  //   return mood[day] ?? [];
-  // }
-
-  // final mood = LinkedHashMap(
-  //   equals: isSameDay,
-  //   hashCode: getHashCode
-  // );
 }
