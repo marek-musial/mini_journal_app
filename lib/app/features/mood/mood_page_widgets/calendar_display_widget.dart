@@ -23,7 +23,7 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
   DateTime? _focusedDay;
   DateTime? selectedDay;
   String? currentNote;
-  MoodEnum? currentMood;
+  String? currentMood;
 
   @override
   Widget build(BuildContext context) {

@@ -16,7 +16,7 @@ class MoodPageCubit extends Cubit<MoodPageState> {
     emit(
       MoodPageState(
         itemModel: MoodItemModel(
-          mood: MoodEnum.neutral,
+          mood: 'Neutral',
           note: '',
           date: day,
         ),
@@ -24,7 +24,7 @@ class MoodPageCubit extends Cubit<MoodPageState> {
     );
   }
 
-  Future<void> setMood(MoodEnum? mood, String? note, DateTime? day) async {
+  Future<void> setMood(String? mood, String? note, DateTime? day) async {
     emit(
       MoodPageState(
         itemModel: MoodItemModel(

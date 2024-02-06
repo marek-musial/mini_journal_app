@@ -1,7 +1,5 @@
 import 'package:intl/intl.dart';
 
-enum MoodEnum { bad, neutral, good }
-
 class MoodItemModel {
   MoodItemModel({
     required this.mood,
@@ -9,7 +7,7 @@ class MoodItemModel {
     required this.date,
   });
 
-  final MoodEnum? mood;
+  final String? mood;
   final String? note;
   final DateTime? date;
 

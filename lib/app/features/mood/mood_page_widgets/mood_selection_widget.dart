@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:journal/app/features/mood/cubit/mood_page_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:journal/models/mood_item_model.dart';
 import 'package:journal/themes/color_schemes.dart';
 import 'package:journal/themes/screen_sizes.dart';
 
@@ -17,7 +16,7 @@ class MoodSelection extends StatefulWidget {
 class _MoodSelectionState extends State<MoodSelection> {
   int? _value = 1;
   final controller = TextEditingController();
-  MoodEnum? currentMood;
+  String? currentMood;
   String? currentNote;
   DateTime? selectedDay;
 
@@ -37,7 +36,7 @@ class _MoodSelectionState extends State<MoodSelection> {
                 setState(() {
                   selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
                   _value = selected ? 0 : null;
-                  currentMood = MoodEnum.bad;
+                  currentMood = 'Bad';
                   context.read<MoodPageCubit>().setMood(
                         currentMood,
                         currentNote,
@@ -54,7 +53,7 @@ class _MoodSelectionState extends State<MoodSelection> {
                 setState(() {
                   selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
                   _value = selected ? 1 : null;
-                  currentMood = MoodEnum.neutral;
+                  currentMood = 'Neutral';
                   context.read<MoodPageCubit>().setMood(
                         currentMood,
                         currentNote,
@@ -72,7 +71,7 @@ class _MoodSelectionState extends State<MoodSelection> {
                   () {
                     selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
                     _value = selected ? 2 : null;
-                    currentMood = MoodEnum.good;
+                    currentMood = 'Good';
                     context.read<MoodPageCubit>().setMood(
                           currentMood,
                           currentNote,

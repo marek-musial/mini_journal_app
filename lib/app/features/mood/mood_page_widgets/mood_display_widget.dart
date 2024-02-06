@@ -12,28 +12,31 @@ class MoodDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (itemModel?.mood) {
-      case MoodEnum.bad:
-        return Text('Bad',
-            style: TextStyle(
-              fontSize: screenHeight / 44,
-            ));
-      case MoodEnum.neutral:
-        return Text('Neutral',
-            style: TextStyle(
-              fontSize: screenHeight / 44,
-            ));
-      case MoodEnum.good:
-        return Text(
-          'Good',
-          style: TextStyle(
-            fontSize: screenHeight / 44,
-          ),
-        );
-      case null:
-        return SizedBox(
-          height: screenHeight / 44,
-        );
+    if (itemModel?.mood == 'Bad') {
+      return Text(
+        'Bad',
+        style: TextStyle(
+          fontSize: screenHeight / 44,
+        ),
+      );
+    } else if (itemModel?.mood == 'Neutral') {
+      return Text(
+        'Neutral',
+        style: TextStyle(
+          fontSize: screenHeight / 44,
+        ),
+      );
+    } else if (itemModel?.mood == 'Good') {
+      return Text(
+        'Good',
+        style: TextStyle(
+          fontSize: screenHeight / 44,
+        ),
+      );
+    } else {
+      return SizedBox(
+        height: screenHeight / 44,
+      );
     }
   }
 }
