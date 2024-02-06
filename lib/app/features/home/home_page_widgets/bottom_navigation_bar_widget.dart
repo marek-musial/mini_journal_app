@@ -31,14 +31,8 @@ class _NavBarState extends State<NavBar> {
           activeIcon: Icon(Icons.add),
         ),
         BottomNavigationBarItem(
-          label: 'Graph',
-          icon: Icon(Icons.auto_graph),
-          activeIcon: Icon(Icons.auto_graph),
-        ),
-        BottomNavigationBarItem(
           label: 'Summary',
           icon: Icon(Icons.calendar_month),
-          activeIcon: Icon(Icons.calendar_month),
         ),
       ],
       backgroundColor: currentColorScheme.background,

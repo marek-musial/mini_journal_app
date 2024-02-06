@@ -15,6 +15,8 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: const DrawerWidget(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: const FAB(),
       bottomNavigationBar: const NavBar(),
       body: BlocProvider(
         create: (context) => MoodPageCubit(),
