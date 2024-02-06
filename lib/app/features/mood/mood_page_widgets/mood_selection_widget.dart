@@ -14,7 +14,7 @@ class MoodSelection extends StatefulWidget {
 }
 
 class _MoodSelectionState extends State<MoodSelection> {
-  int? _value = 1;
+  int? _chipSelected = 1;
   final controller = TextEditingController();
   String? currentMood;
   String? currentNote;
@@ -31,52 +31,40 @@ class _MoodSelectionState extends State<MoodSelection> {
           children: [
             ChoiceChip(
               label: const Text('Bad'),
-              selected: _value == 0,
+              selected: _chipSelected == 0,
               onSelected: (selected) {
                 setState(() {
                   selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
-                  _value = selected ? 0 : null;
+                  _chipSelected = selected ? 0 : null;
                   currentMood = 'Bad';
-                  context.read<MoodPageCubit>().setMood(
-                        currentMood,
-                        currentNote,
-                        selectedDay,
-                      );
+                  addMood();
                 });
               },
               selectedColor: Colors.red,
             ),
             ChoiceChip(
               label: const Text('Neutral'),
-              selected: _value == 1,
+              selected: _chipSelected == 1 || _chipSelected == null,
               onSelected: (selected) {
                 setState(() {
                   selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
-                  _value = selected ? 1 : null;
+                  _chipSelected = selected ? 1 : null;
                   currentMood = 'Neutral';
-                  context.read<MoodPageCubit>().setMood(
-                        currentMood,
-                        currentNote,
-                        selectedDay,
-                      );
+                  addMood();
                 });
               },
               selectedColor: Colors.grey.shade700,
             ),
             ChoiceChip(
               label: const Text('Good'),
-              selected: _value == 2,
+              selected: _chipSelected == 2,
               onSelected: (selected) {
                 setState(
                   () {
                     selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
-                    _value = selected ? 2 : null;
+                    _chipSelected = selected ? 2 : null;
                     currentMood = 'Good';
-                    context.read<MoodPageCubit>().setMood(
-                          currentMood,
-                          currentNote,
-                          selectedDay,
-                        );
+                    addMood();
                   },
                 );
               },
@@ -95,11 +83,7 @@ class _MoodSelectionState extends State<MoodSelection> {
               suffixIcon: IconButton(
                 onPressed: () {
                   selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
-                  context.read<MoodPageCubit>().setMood(
-                        currentMood,
-                        currentNote,
-                        selectedDay,
-                      );
+                  addMood();
                   controller.clear();
                 },
                 icon: Icon(
@@ -116,5 +100,13 @@ class _MoodSelectionState extends State<MoodSelection> {
         ),
       ],
     );
+  }
+
+  void addMood() {
+    context.read<MoodPageCubit>().setMood(
+          currentMood,
+          currentNote,
+          selectedDay,
+        );
   }
 }
