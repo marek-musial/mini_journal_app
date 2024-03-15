@@ -75,7 +75,6 @@ class MoodPageCubit extends Cubit<MoodPageState> {
   Future<void> getItemWithDate(DateTime date) async {
     final itemModel = await _itemRepository.getWithDate(date: date);
     if (itemModel.mood == null || itemModel.note == null || itemModel.date == null) {
-      ///(FIX) needs to update all null elements to empty strings in UI
       updateInApp(
         mood: itemModel.mood,
         note: itemModel.note,
