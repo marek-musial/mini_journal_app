@@ -62,20 +62,29 @@ class MoodItemRepository {
     );
 
     final query = await _moodsRef
-        .where('date', isGreaterThanOrEqualTo: date)
-        .where('date', isLessThan: date.add(const Duration(days: 1)))
-        .get();
+    .where('date', isGreaterThanOrEqualTo: date)
+    .where('date', isLessThan: date.add(const Duration(days: 1)))
+    .get();
+    if (query.docs.isEmpty) {
+      return MoodItemModel(
+        id: null,
+        mood: '',
+        note: '',
+        date: date,
+      );
+    } else {
     if (query.docs == []) {
       print('query.docs is empty');
     }
     print(query.docs);
-    for (var doc in query.docs) {
-      model = MoodItemModel(
-        id: doc.id,
-        mood: doc['mood_type'],
-        note: doc['note'],
-        date: (doc['date'] as Timestamp).toDate(),
-      );
+      for (var doc in query.docs) {
+        model = MoodItemModel(
+          id: doc.id,
+          mood: doc['mood_type'],
+          note: doc['note'],
+          date: (doc['date'] as Timestamp).toDate(),
+        );
+      }
     }
     return model;
   }
