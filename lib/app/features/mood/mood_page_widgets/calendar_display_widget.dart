@@ -20,10 +20,21 @@ class CalendarDisplay extends StatefulWidget {
 
 class _CalendarDisplayState extends State<CalendarDisplay> {
   DateTime? _selectedDay;
-  DateTime? _focusedDay;
+  DateTime? _focusedDay = DateTime.now();
   DateTime? selectedDay;
   String? currentNote;
   String? currentMood;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = _focusedDay;
+    context.read<MoodPageCubit>().updateInApp(
+          currentMood,
+          currentNote,
+          _selectedDay,
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,26 +111,49 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
       },
       onDaySelected: _onDaySelected,
       onPageChanged: _onPageChanged,
+      // eventLoader: (day) {
+      //   return _getMoodForDay(day);
+      // },
     );
   }
 
-  void _onPageChanged(focusedDay) {
+  void _onPageChanged(DateTime focusedDay) {
     _focusedDay = focusedDay;
   }
 
-  void _onDaySelected(selectedDay, focusedDay) {
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(
       () {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
-        currentMood = widget.itemModel?.mood;
-        currentNote = widget.itemModel?.note;
-        context.read<MoodPageCubit>().setMood(
+        currentMood = context.read<MoodPageCubit>().state.newItemModel?.mood;
+        // widget.itemModel?.mood;
+        currentNote = context.read<MoodPageCubit>().state.newItemModel?.note;
+        // widget.itemModel?.note;
+        // context.read<MoodPageCubit>().add(
+        //       currentMood,
+        //       currentNote,
+        //       selectedDay,
+        //     );
+        context.read<MoodPageCubit>().updateInApp(
               currentMood,
               currentNote,
-              selectedDay,
+              _selectedDay,
             );
+        _getMoodForDay(selectedDay);
       },
     );
+  }
+
+  List<MoodItemModel> _getMoodForDay(DateTime day) {
+    context.read<MoodPageCubit>().getItemWithDate(day);
+    List<MoodItemModel> moods = [];
+    moods.add(MoodItemModel(
+      id: widget.itemModel?.id,
+      mood: widget.itemModel?.mood,
+      note: widget.itemModel?.note,
+      date: widget.itemModel?.date,
+    ));
+    return moods;
   }
 }

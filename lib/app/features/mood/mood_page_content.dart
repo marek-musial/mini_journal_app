@@ -11,39 +11,42 @@ class MoodPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MoodPageCubit(),
-      child: BlocBuilder<MoodPageCubit, MoodPageState>(
-        builder: (context, state) {
-          final itemModel = state.itemModel;
-
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(screenWidth / 24),
-                    ),
-                    color: currentColorScheme.primaryContainer),
-                margin: EdgeInsets.symmetric(
-                  vertical: screenHeight / 64,
-                  horizontal: screenWidth / 32,
-                ),
-                padding: EdgeInsets.symmetric(
-                  vertical: screenHeight / 64,
-                  horizontal: screenWidth / 32,
-                ),
-                child: const MoodSelection(),
-              ),
-              DateDisplay(itemModel: itemModel),
-              MoodDisplay(itemModel: itemModel),
-              MessageDisplay(itemModel: itemModel),
-              CalendarDisplay(itemModel: itemModel),
-            ],
+    return BlocBuilder<MoodPageCubit, MoodPageState>(
+      builder: (context, state) {
+        final itemModel = state.newItemModel;
+    
+        if (state.errorMessage.isNotEmpty) {
+          return Center(
+            child: Text(state.errorMessage),
           );
-        },
-      ),
+        }
+    
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(screenWidth / 24),
+                  ),
+                  color: currentColorScheme.primaryContainer),
+              margin: EdgeInsets.symmetric(
+                vertical: screenHeight / 64,
+                horizontal: screenWidth / 32,
+              ),
+              padding: EdgeInsets.symmetric(
+                vertical: screenHeight / 64,
+                horizontal: screenWidth / 32,
+              ),
+              child: const MoodSelection(),
+            ),
+            DateDisplay(itemModel: itemModel),
+            MoodDisplay(itemModel: itemModel),
+            MessageDisplay(itemModel: itemModel),
+            CalendarDisplay(itemModel: itemModel),
+          ],
+        );
+      },
     );
   }
 }

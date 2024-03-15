@@ -34,10 +34,10 @@ class _MoodSelectionState extends State<MoodSelection> {
               selected: _chipSelected == 0,
               onSelected: (selected) {
                 setState(() {
-                  selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
+                  selectedDay = context.read<MoodPageCubit>().state.newItemModel?.date;
                   _chipSelected = selected ? 0 : null;
                   currentMood = 'Bad';
-                  addMood();
+                  updateMood();
                 });
               },
               selectedColor: Colors.red,
@@ -47,10 +47,10 @@ class _MoodSelectionState extends State<MoodSelection> {
               selected: _chipSelected == 1 || _chipSelected == null,
               onSelected: (selected) {
                 setState(() {
-                  selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
+                  selectedDay = context.read<MoodPageCubit>().state.newItemModel?.date;
                   _chipSelected = selected ? 1 : null;
                   currentMood = 'Neutral';
-                  addMood();
+                  updateMood();
                 });
               },
               selectedColor: Colors.grey.shade700,
@@ -61,10 +61,10 @@ class _MoodSelectionState extends State<MoodSelection> {
               onSelected: (selected) {
                 setState(
                   () {
-                    selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
+                    selectedDay = context.read<MoodPageCubit>().state.newItemModel?.date;
                     _chipSelected = selected ? 2 : null;
                     currentMood = 'Good';
-                    addMood();
+                    updateMood();
                   },
                 );
               },
@@ -82,8 +82,8 @@ class _MoodSelectionState extends State<MoodSelection> {
             decoration: InputDecoration(
               suffixIcon: IconButton(
                 onPressed: () {
-                  selectedDay = context.read<MoodPageCubit>().state.itemModel?.date;
-                  addMood();
+                  selectedDay = context.read<MoodPageCubit>().state.newItemModel?.date;
+                  updateMood();
                   controller.clear();
                 },
                 icon: Icon(
@@ -102,8 +102,8 @@ class _MoodSelectionState extends State<MoodSelection> {
     );
   }
 
-  void addMood() {
-    context.read<MoodPageCubit>().setMood(
+  void updateMood() {
+    context.read<MoodPageCubit>().updateInApp(
           currentMood,
           currentNote,
           selectedDay,
