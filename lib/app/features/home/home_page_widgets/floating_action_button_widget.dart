@@ -16,17 +16,10 @@ class FAB extends StatelessWidget {
         shape: const CircleBorder(side: BorderSide.none),
         child: const Icon(Icons.edit_calendar),
         onPressed: () {
-          //somehow FAB doesn't read correct context and sees state values as nulls
-          //-> sees state.newItemModel as null
           String? currentMood = context.read<MoodPageCubit>().state.newItemModel?.mood;
           String? currentNote = context.read<MoodPageCubit>().state.newItemModel?.note;
           DateTime? currentDate = context.read<MoodPageCubit>().state.newItemModel?.date;
 
-          // context.read<MoodPageCubit>().addMood(
-          //       currentMood,
-          //       currentNote,
-          //       currentDate,
-          //     );
           if (currentMood != null && currentNote != null && currentDate != null) {
             context.read<MoodPageCubit>().add(
                   currentMood,
