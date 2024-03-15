@@ -104,9 +104,9 @@ class _MoodSelectionState extends State<MoodSelection> {
 
   void updateMood() {
     context.read<MoodPageCubit>().updateInApp(
-          currentMood,
-          currentNote,
-          selectedDay,
+          mood: currentMood,
+          note: currentNote,
+          date: selectedDay,
         );
   }
 }

@@ -42,10 +42,10 @@ class MoodPageCubit extends Cubit<MoodPageState> {
     );
   }
 
-  void updateInApp(
-    String? mood,
-    String? note,
-    DateTime? date,
+  void updateInApp({
+    required String? mood,
+    required String? note,
+    required DateTime? date,}
   ) {
     emit(
       MoodPageState(
@@ -77,9 +77,9 @@ class MoodPageCubit extends Cubit<MoodPageState> {
     if (itemModel.mood == null || itemModel.note == null || itemModel.date == null) {
       ///(FIX) needs to update all null elements to empty strings in UI
       updateInApp(
-        itemModel.mood,
-        itemModel.note,
-        itemModel.date,
+        mood: itemModel.mood,
+        note: itemModel.note,
+        date: itemModel.date,
       );
     } else {
       emit(

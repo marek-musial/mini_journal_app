@@ -30,9 +30,9 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
     super.initState();
     _selectedDay = _focusedDay;
     context.read<MoodPageCubit>().updateInApp(
-          currentMood,
-          currentNote,
-          _selectedDay,
+          mood: currentMood,
+          note: currentNote,
+          date: _selectedDay,
         );
   }
 
@@ -136,9 +136,9 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
         //       selectedDay,
         //     );
         context.read<MoodPageCubit>().updateInApp(
-              currentMood,
-              currentNote,
-              _selectedDay,
+              mood: currentMood,
+              note: currentNote,
+              date:_selectedDay,
             );
         _getMoodForDay(selectedDay);
       },
