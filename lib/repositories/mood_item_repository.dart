@@ -47,7 +47,7 @@ class MoodItemRepository {
     );
   }
 
-    ///currently returns only one of saved elements for the chosen date (TEMP SOLUTION)
+  ///currently returns only one of saved elements for the chosen date (TEMP SOLUTION)
   Future<MoodItemModel> getWithDate({required DateTime date}) async {
     // final userId = FirebaseAuth.instance.currentUser?.uid;
     // if (userId == null) {
@@ -61,7 +61,10 @@ class MoodItemRepository {
       date: null,
     );
 
-    final query = await _moodsRef.where('date', isEqualTo: date).get();
+    final query = await _moodsRef
+        .where('date', isGreaterThanOrEqualTo: date)
+        .where('date', isLessThan: date.add(const Duration(days: 1)))
+        .get();
     if (query.docs == []) {
       print('query.docs is empty');
     }

@@ -18,9 +18,12 @@ class CalendarDisplay extends StatefulWidget {
   State<CalendarDisplay> createState() => _CalendarDisplayState();
 }
 
+DateTime _now = DateTime.now();
+DateTime _today = DateTime(_now.year, _now.month, _now.day);
+
 class _CalendarDisplayState extends State<CalendarDisplay> {
   DateTime? _selectedDay;
-  DateTime? _focusedDay = DateTime.now();
+  DateTime? _focusedDay = _today;
   DateTime? selectedDay;
   String? currentNote;
   String? currentMood;
@@ -91,9 +94,9 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
 
     return TableCalendar(
       calendarStyle: calendarStyle,
-      focusedDay: _focusedDay ?? DateTime.now(),
-      firstDay: DateTime.now().subtract(const Duration(days: 365 * 10)),
-      lastDay: DateTime.now(),
+      focusedDay: _focusedDay ?? _today,
+      firstDay: _today.subtract(const Duration(days: 365 * 10)),
+      lastDay: _today,
       daysOfWeekHeight: screenHeight / 40,
       rowHeight: screenHeight / 22,
       startingDayOfWeek: StartingDayOfWeek.monday,
@@ -138,7 +141,7 @@ class _CalendarDisplayState extends State<CalendarDisplay> {
         context.read<MoodPageCubit>().updateInApp(
               mood: currentMood,
               note: currentNote,
-              date:_selectedDay,
+              date: _selectedDay,
             );
         _getMoodForDay(selectedDay);
       },
