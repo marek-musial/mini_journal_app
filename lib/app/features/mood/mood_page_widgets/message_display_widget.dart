@@ -12,7 +12,7 @@ class MessageDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (itemModel?.note != null) {
+    if (itemModel?.note != null || itemModel?.note != '') {
       return Text(
         'Because: ${itemModel!.note!}',
         style: TextStyle(
