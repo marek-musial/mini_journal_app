@@ -73,10 +73,6 @@ class MoodItemRepository {
         date: date,
       );
     } else {
-    if (query.docs == []) {
-      print('query.docs is empty');
-    }
-    print(query.docs);
       for (var doc in query.docs) {
         model = MoodItemModel(
           id: doc.id,
